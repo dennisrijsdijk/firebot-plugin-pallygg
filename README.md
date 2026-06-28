@@ -4,7 +4,7 @@
 
 Before continuing, generate an API key on [Pally's Website](https://pally.gg/dashboard/settings/api-keys)
 
-Download `firebot-pally.js` from the [latest release](https://github.com/dennisrijsdijk/firebot-script-pallygg/releases/latest)
+Download `firebot-pally.js` from the [latest release](https://github.com/dennisrijsdijk/firebot-plugin-pallygg/releases/tag/v1.0.1)
 
 In Firebot, go to Settings > Scripts. If Custom Scripts are Disabled, Enable them.
 
