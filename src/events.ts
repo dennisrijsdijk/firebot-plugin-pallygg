@@ -1,7 +1,7 @@
-import { modules } from "./main";
+import firebot, { EventSource } from "@crowbartools/firebot-types";
 import { PallyDonationEventData } from "./pally";
 
-const eventSource = {
+export const eventSource: EventSource = {
     id: "dennisontheinternet:pally",
     name: "Pally.gg",
     description: "Donation events for pally.gg",
@@ -16,7 +16,8 @@ const eventSource = {
             },
             activityFeed: {
                 icon: "fad fa-hand-holding-usd",
-                getMessage: (eventData: PallyDonationEventData) => {
+                getMessage: (data: unknown) => {
+                    const eventData = data as PallyDonationEventData;
                     const username: string = eventData.username === "" ? "Someone" : eventData.username;
                     return `**${username}** donated **$${eventData.donation.toFixed(2)}** to page **${eventData.pageSlug}**`
                 }
@@ -25,12 +26,8 @@ const eventSource = {
     ]
 }
 
-export function registerEvents() {
-    modules.eventManager.registerEventSource(eventSource);
-}
-
 export function triggerPallyDonation(username: string, donation: number, message: string, pageSlug: string) {
-    modules.eventManager.triggerEvent(eventSource.id, "donation", {
+    firebot.events.trigger(eventSource.id, "donation", {
         username,
         donation,
         message,

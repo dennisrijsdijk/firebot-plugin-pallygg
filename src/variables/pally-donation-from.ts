@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/types/modules/replace-variable-manager";
-import { Effects } from "@crowbartools/firebot-custom-scripts-types/types/effects";
+import type { ReplaceVariable } from "@crowbartools/firebot-types";
 import { PallyDonationEventData } from "../pally";
 
 const triggers = {
@@ -14,7 +13,7 @@ const model: ReplaceVariable = {
         triggers: triggers,
         possibleDataOutput: [ "text" ]
     },
-    evaluator(trigger: Effects.Trigger): string {
+    evaluator(trigger) {
         const username = (trigger.metadata.eventData as PallyDonationEventData).username;
         return username === "" ? "Someone" : username;
     }

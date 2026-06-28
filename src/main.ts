@@ -1,47 +1,67 @@
-import { Firebot, ScriptModules } from "@crowbartools/firebot-custom-scripts-types";
-import { registerEvents } from "./events";
+import firebot, { Plugin } from "@crowbartools/firebot-types";
+
+import { eventSource } from "./events";
 import websocket from "./websocket";
 import variables from "./variables";
 
-interface Params {
+type Params = {
   apiKey: string;
 }
 
-const script: Firebot.CustomScript<Params> = {
-  getScriptManifest: () => {
-    return {
-      name: "Pally.gg",
-      description: "Pally.gg integration for Firebot",
-      author: "DennisOnTheInternet",
-      version: "1.0.1",
-      firebotVersion: "5",
-    };
+const plugin: Plugin<Params> = {
+  manifest: {
+    name: "Pally.gg",
+    version: "1.1.0",
+    author: "DennisOnTheInternet",
+    description: "Pally.gg Donation events for Firebot",
+    tags: [
+      "donation",
+      "donations",
+      "tip",
+      "tips",
+      "events",
+      "alerts"
+    ],
+    repo: "https://github.com/dennisrijsdijk/firebot-plugin-pallygg",
+    minimumFirebotVersion: {
+      major: 5,
+      minor: 67,
+      patch: 0
+    },
+    icon: {
+      type: "font-awesome",
+      name: "fa-hand-holding-usd"
+    }
   },
-  getDefaultParameters: () => {
-    return {
-      apiKey: {
-        type: "string",
-        default: "",
-        description: "API Key",
-        secondaryDescription: "Enter your pally.gg API key here",
+  parametersSchema: [
+    {
+      name: "apiKey",
+      type: "password",
+      title: "Pally.gg API Key",
+      description: "Your Pally.gg account's API Key.",
+      tip: "You can [Generate an API Key](https://pally.gg/dashboard/settings/api-keys) on Pally's website",
+      validation: {
+        required: true,
+        pattern: ".+"
       },
-    };
+      default: ""
+    }
+  ],
+  registers: {
+    eventSources: [
+      eventSource
+    ],
+    variables
   },
-  run: (runRequest) => {
-    modules = runRequest.modules;
-    variables.forEach(variable => modules.replaceVariableManager.registerReplaceVariable(variable));
-    registerEvents();
-    websocket.connect(runRequest.parameters.apiKey);
+  async onParameterUpdate(ctx) {
+    await websocket.connect(ctx.parameters.apiKey);
   },
-  parametersUpdated: (parameters: Params) => {
-    websocket.disconnect();
-    websocket.connect(parameters.apiKey);
+  onLoad(ctx) {
+    websocket.connect(ctx.parameters.apiKey);
   },
-  stop: () => {
-    websocket.disconnect();
+  async onUnload() {
+    await websocket.disconnect();
   }
-};
+}
 
-export let modules: ScriptModules;
-
-export default script;
+export default plugin;
