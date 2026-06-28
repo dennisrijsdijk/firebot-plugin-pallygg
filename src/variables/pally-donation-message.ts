@@ -1,5 +1,4 @@
 import type { ReplaceVariable } from "@crowbartools/firebot-types";
-import { PallyDonationEventData } from "../pally";
 
 const triggers = {
     event: ["dennisontheinternet:pally:donation"],
@@ -9,12 +8,13 @@ const triggers = {
 const model: ReplaceVariable = {
     definition: {
         handle: "pallyDonationMessage",
+        hidden: true,
         description: "The message sent with a donation on pally.gg",
         triggers: triggers,
         possibleDataOutput: [ "text" ]
     },
     evaluator(trigger) {
-        return (trigger.metadata.eventData as PallyDonationEventData).message ?? "";
+        return (trigger.metadata.eventData as PallyDonationEventData).donationMessage ?? "";
     }
 }
 

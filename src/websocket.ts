@@ -1,5 +1,4 @@
 import { EventEmitter } from "node:events";
-import { PallyCampaignTipNotify, PallyMessage } from "./pally";
 import { triggerPallyDonation } from "./events";
 import firebot from "@crowbartools/firebot-types";
 

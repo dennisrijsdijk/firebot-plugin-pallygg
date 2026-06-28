@@ -1,6 +1,6 @@
-export type PallyMessageType = "campaigntip.notify";
+type PallyMessageType = "campaigntip.notify";
 
-export type PallyMessage = {
+type PallyMessage = {
     type: PallyMessageType;
     payload: {
         page: {
@@ -12,7 +12,7 @@ export type PallyMessage = {
     }
 };
 
-export type PallyCampaignTipEventData = {
+type PallyCampaignTipEventData = {
     createdAt: string;
     displayName: string;
     grossAmountInCents: number;
@@ -23,14 +23,11 @@ export type PallyCampaignTipEventData = {
     updatedAt: string;
 };
 
-export type PallyDonationEventData = {
-    username: string;
-    donation: number;
-    message: string;
+type PallyDonationEventData = FirebotDonationMetadata & {
     pageSlug: string;
 }
 
-export type PallyCampaignTipNotify = {
+type PallyCampaignTipNotify = {
     type: "campaigntip.notify";
     payload: {
         campaignTip: PallyCampaignTipEventData;

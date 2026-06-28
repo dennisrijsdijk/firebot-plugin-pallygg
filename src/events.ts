@@ -1,5 +1,4 @@
 import firebot, { EventSource } from "@crowbartools/firebot-types";
-import { PallyDonationEventData } from "./pally";
 
 export const eventSource: EventSource = {
     id: "dennisontheinternet:pally",
@@ -18,8 +17,7 @@ export const eventSource: EventSource = {
                 icon: "fad fa-hand-holding-usd",
                 getMessage: (data: unknown) => {
                     const eventData = data as PallyDonationEventData;
-                    const username: string = eventData.username === "" ? "Someone" : eventData.username;
-                    return `**${username}** donated **$${eventData.donation.toFixed(2)}** to page **${eventData.pageSlug}**`
+                    return `**${eventData.from || "Someone"}** donated **${eventData.formattedDonationAmount}** to page **${eventData.pageSlug}**`
                 }
             }
         }
@@ -27,10 +25,13 @@ export const eventSource: EventSource = {
 }
 
 export function triggerPallyDonation(username: string, donation: number, message: string, pageSlug: string) {
-    firebot.events.trigger(eventSource.id, "donation", {
-        username,
-        donation,
-        message,
+    const metadata: PallyDonationEventData = {
+        donationAmount: donation,
+        donationMessage: message,
+        formattedDonationAmount: `$${donation.toFixed(2)}`,
+        from: username,
         pageSlug
-    });
+    }
+    
+    firebot.events.trigger(eventSource.id, "donation", metadata);
 }

@@ -1,5 +1,4 @@
 import type { ReplaceVariable } from "@crowbartools/firebot-types";
-import { PallyDonationEventData } from "../pally";
 
 const triggers = {
     event: ["dennisontheinternet:pally:donation"],
