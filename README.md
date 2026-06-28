@@ -1,5 +1,9 @@
 # Firebot Pally
 
+### This plugin requires Firebot v5.67.0 or newer
+
+Using v5.66.x or lower? Get the [legacy script](https://github.com/dennisrijsdijk/firebot-plugin-pallygg/tree/legacy-script) instead.
+
 ## Installation
 
 Before continuing, generate an API key on [Pally's Website](https://pally.gg/dashboard/settings/api-keys)
