@@ -1,0 +1,24 @@
+<eos-container header="Page Slug">
+  <firebot-input
+    model="effect.pageSlug"
+    placeholder-text="Page to send the test donation for"
+  />
+</eos-container>
+
+<eos-container header="Username" pad-top="true">
+  <firebot-input
+    model="effect.username"
+    placeholder-text="Username to send the test donation from. Empty for anonymous"
+  />
+</eos-container>
+
+<eos-container header="Message" pad-top="true">
+  <firebot-input
+    model="effect.message"
+    placeholder-text="Enter message to send with the test donation"
+  />
+</eos-container>
+
+<eos-container header="Donation Amount" pad-top="true">
+    <firebot-input data-type="number" model="effect.donationAmount" placeholder-text="5.00" menu-position="under"/>
+</eos-container>

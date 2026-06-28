@@ -33,6 +33,32 @@ class PallyWebsocket extends EventEmitter {
         }, 9e4);
     }
 
+    simulateDonation(slug: string, donationAmount: number, displayName: string, message: string) {
+        if (!this._ws || this._ws.readyState !== WebSocket.OPEN) {
+            firebot.logger.error("Error while simulating donation: websocket is not ready.");
+            return;
+        }
+
+        const echoMessage = {
+            type: "echo",
+            payload: {
+                type: "campaigntip.notify",
+                payload: {
+                    campaignTip: {
+                        displayName,
+                        grossAmountInCents: donationAmount * 100,
+                        message
+                    },
+                    page: {
+                        slug
+                    }
+                }
+            }
+        }
+
+        this._ws.send(JSON.stringify(echoMessage));
+    }
+
     cleanupWebsocket() {
         clearTimeout(this._ping);
         clearTimeout(this._pong);

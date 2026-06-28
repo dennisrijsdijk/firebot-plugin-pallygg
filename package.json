@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "build": "tsdown",
-    "build:dev": "tsdown --minify false && npm run copy",
+    "build:dev": "tsdown --minify false --define.HIDE_DEBUG_EFFECT false && npm run copy",
     "copy": "node ./scripts/copy-build.js"
   },
   "author": "dennisrijsdijk",

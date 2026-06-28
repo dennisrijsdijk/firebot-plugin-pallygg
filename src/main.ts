@@ -1,8 +1,8 @@
-import firebot, { Plugin } from "@crowbartools/firebot-types";
-
 import { eventSource } from "./events";
-import websocket from "./websocket";
+import { Plugin } from "@crowbartools/firebot-types";
+import simulateEffect from "./websocket-debug-effect";
 import variables from "./variables";
+import websocket from "./websocket";
 
 type Params = {
   apiKey: string;
@@ -11,7 +11,7 @@ type Params = {
 const plugin: Plugin<Params> = {
   manifest: {
     name: "Pally.gg",
-    version: "1.1.0",
+    version: PLUGIN_VERSION,
     author: "DennisOnTheInternet",
     description: "Pally.gg Donation events for Firebot",
     tags: [
@@ -48,6 +48,9 @@ const plugin: Plugin<Params> = {
     }
   ],
   registers: {
+    effects: [
+      simulateEffect
+    ],
     eventSources: [
       eventSource
     ],

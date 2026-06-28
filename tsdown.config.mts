@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { defineConfig } from "tsdown";
 
-const { pluginOutputName } = JSON.parse(
+const { pluginOutputName, version } = JSON.parse(
   readFileSync(new URL("./package.json", import.meta.url), "utf-8")
 );
 
@@ -34,4 +34,8 @@ export default defineConfig({
   loader: {
     ".html": "text"
   },
+  define: {
+    PLUGIN_VERSION: JSON.stringify(version),
+    HIDE_DEBUG_EFFECT: "true"
+  }
 });
