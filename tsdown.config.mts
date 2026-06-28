@@ -32,7 +32,8 @@ export default defineConfig({
   dts: false,
   // Allow importing .html files as strings
   loader: {
-    ".html": "text"
+    ".html": "text",
+    ".svg": "base64"
   },
   define: {
     PLUGIN_VERSION: JSON.stringify(version),

@@ -3,6 +3,7 @@ import { Plugin } from "@crowbartools/firebot-types";
 import simulateEffect from "./websocket-debug-effect";
 import { additionalVariableEvents, variables } from "./variables";
 import websocket from "./websocket";
+import pallyLogo from "./pally_logo.svg";
 
 type Params = {
   apiKey: string;
@@ -29,8 +30,8 @@ const plugin: Plugin<Params> = {
       patch: 0
     },
     icon: {
-      type: "font-awesome",
-      name: "fa-hand-holding-usd"
+      type: "custom",
+      url: `data:image/svg+xml;base64,${pallyLogo}`
     }
   },
   parametersSchema: [
