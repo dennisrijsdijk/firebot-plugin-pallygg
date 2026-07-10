@@ -1,4 +1,4 @@
-import firebot, { EventSource } from "@crowbartools/firebot-types";
+import firebot, { EventSource, PluginAdditionalFilterEvents } from "@crowbartools/firebot-types";
 
 export const eventSource: EventSource = {
     id: "dennisontheinternet:pally",
@@ -10,8 +10,8 @@ export const eventSource: EventSource = {
             name: "Donation",
             description: "When a donation is sent through pally.gg",
             manualMetadata: {
-                username: "Firebot",
-                donation: 5.10
+                from: "Firebot",
+                donationAmount: 5.10
             },
             activityFeed: {
                 icon: "fad fa-hand-holding-usd",
@@ -35,3 +35,14 @@ export function triggerPallyDonation(username: string, donation: number, message
     
     firebot.events.trigger(eventSource.id, "donation", metadata);
 }
+
+export const additionalFilterEvents: PluginAdditionalFilterEvents[] = [
+    {
+        filterId: "firebot:donation-amount",
+        events: [ { eventSourceId: "dennisontheinternet:pally", eventId: "donation" } ]
+    },
+    {
+        filterId: "firebot:donationfrom",
+        events: [ { eventSourceId: "dennisontheinternet:pally", eventId: "donation" } ]
+    }
+];

@@ -1,4 +1,4 @@
-import { eventSource } from "./events";
+import { additionalFilterEvents, eventSource } from "./events";
 import { Plugin } from "@crowbartools/firebot-types";
 import simulateEffect from "./websocket-debug-effect";
 import { additionalVariableEvents, variables } from "./variables";
@@ -49,6 +49,7 @@ const plugin: Plugin<Params> = {
     }
   ],
   registers: {
+    additionalFilterEvents,
     additionalVariableEvents,
     effects: [
       simulateEffect
